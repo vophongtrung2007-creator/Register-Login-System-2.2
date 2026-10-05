@@ -50,7 +50,11 @@ namespace Register_Login_System
                 {
                     this.Hide();
 
-                    using (var app = new MainApplication())
+                    // Truyền đủ 3 tham số: Họ tên, Tên đăng nhập, Email vào MainApplication
+                    using (var app = new MainApplication(
+                        thongTinTaiKhoan.Value.HoTen,
+                        txtUsername.Text,
+                        thongTinTaiKhoan.Value.Email))
                     {
                         app.ShowDialog();
                     }

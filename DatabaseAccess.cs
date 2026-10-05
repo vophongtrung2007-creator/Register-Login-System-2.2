@@ -7,7 +7,7 @@ namespace Register_Login_System
 {
     public static class DatabaseAccess
     {
-        private const string ChuoiKetNoi = @"Server=localhost\SQLEXPRESS; Database=QuanLyNguoiDung; Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string ChuoiKetNoi = @"Server=localhost; Database=QUANLYBANHANG1; Trusted_Connection=True; TrustServerCertificate=True;";
 
         public static async Task<bool> KiemTraTonTaiAsync(string tenDangNhap)
         {
@@ -42,9 +42,10 @@ namespace Register_Login_System
             await cmd.ExecuteNonQueryAsync();
         }
 
-        public static async Task<(string Salt, string MatKhauBam, string HoTen)?> LayThongTinDangNhapAsync(string tenDangNhap)
+        public static async Task<(string Salt, string MatKhauBam, string HoTen, string Email)?> LayThongTinDangNhapAsync(string tenDangNhap)
         {
-            const string sql = "SELECT Salt, MatKhauBam, HoTen FROM Users WHERE TenDangNhap = @ten";
+            // Đã thêm Email vào câu lệnh SQL
+            const string sql = "SELECT Salt, MatKhauBam, HoTen, Email FROM Users WHERE TenDangNhap = @ten";
             using var conn = new SqlConnection(ChuoiKetNoi);
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add("@ten", SqlDbType.NVarChar, 20).Value = tenDangNhap;
@@ -57,7 +58,11 @@ namespace Register_Login_System
                 string salt = reader.GetString(0);
                 string bam = reader.GetString(1);
                 string hoTen = reader.GetString(2);
-                return (salt, bam, hoTen);
+
+                // Đọc thêm Email (kiểm tra trường hợp NULL)
+                string email = reader.IsDBNull(3) ? "Chưa cập nhật" : reader.GetString(3);
+
+                return (salt, bam, hoTen, email);
             }
 
             return null;
