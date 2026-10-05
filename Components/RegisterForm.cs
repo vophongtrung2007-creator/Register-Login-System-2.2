@@ -24,6 +24,9 @@ namespace Register_Login_System
         public bool exitRequest { get; private set; }
         private bool closeRequest;
 
+        // 1. THÊM BIẾN NÀY ĐỂ LƯU LẠI TÊN ĐĂNG NHẬP SAU KHI TẠO THÀNH CÔNG
+        public string RegisteredUsername { get; private set; } = "";
+
         private void RegisterForm_Load(object sender, EventArgs e)
         {
 
@@ -109,6 +112,10 @@ namespace Register_Login_System
                 );
 
                 MessageBox.Show("Đăng kí thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 2. GÁN TÊN ĐĂNG NHẬP VỪA TẠO VÀO BIẾN TRƯỚC KHI ĐÓNG FORM
+                RegisteredUsername = txtUsername.Text;
+
                 closeRequest = true;
                 this.Close();
             }

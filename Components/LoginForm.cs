@@ -38,6 +38,7 @@ namespace Register_Login_System
 
             try
             {
+                // Lấy thông tin tài khoản từ cơ sở dữ liệu
                 var thongTinTaiKhoan = await DatabaseAccess.LayThongTinDangNhapAsync(txtUsername.Text);
                 bool loginSuccess = false;
 
@@ -50,16 +51,23 @@ namespace Register_Login_System
                 {
                     this.Hide();
 
-                    // Truyền đủ 3 tham số: Họ tên, Tên đăng nhập, Email vào MainApplication
+                    // Xử lý dữ liệu Ngày đăng xuất. 
+                    // Lưu ý: Nếu trong struct/CSDL của bạn đã có cột NgayDangXuat, hãy thay chuỗi mặc định dưới đây thành thongTinTaiKhoan.Value.NgayDangXuat
+                    string ngayDangXuatGanNhat = "Chưa có dữ liệu";
+
+                    // Truyền đủ 3 tham số: Tên đăng nhập, Email, Ngày đăng xuất vào MainApplication
                     using (var app = new MainApplication(
-                        thongTinTaiKhoan.Value.HoTen,
                         txtUsername.Text,
-                        thongTinTaiKhoan.Value.Email))
+                        thongTinTaiKhoan.Value.Email,
+                        ngayDangXuatGanNhat))
                     {
                         app.ShowDialog();
                     }
 
-                    this.Close();
+                    
+                    this.Show();
+                    txtPassword.Clear();
+                    txtUsername.Focus();
                 }
                 else
                 {
@@ -90,10 +98,16 @@ namespace Register_Login_System
                 else
                 {
                     this.Show();
+
+                    // Tự động điền tên đăng nhập vừa đăng ký thành công vào ô Username
+                    if (!string.IsNullOrEmpty(regForm.RegisteredUsername))
+                    {
+                        txtUsername.Text = regForm.RegisteredUsername;
+                        txtPassword.Focus(); // Đưa con trỏ chuột sang ô mật khẩu
+                    }
                 }
             }
         }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Hide();
