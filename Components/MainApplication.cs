@@ -15,7 +15,7 @@ namespace Register_Login_System
             lblGreeting.Text = $"Xin chào, {hoTen}";
             lblUsername.Text = $"Tên đăng nhập: {username}";
             lblEmail.Text = $"Email: {email}";
-            lblLastLoginTime.Text = $"Lần đăng nhập gần nhất: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}";
+            lblLastLoginTime.Text = $"Lần đăng nhập cuối: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}";
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
