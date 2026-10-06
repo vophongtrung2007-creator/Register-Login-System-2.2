@@ -38,10 +38,9 @@ namespace Register_Login_System
 
             try
             {
-                // Lấy thông tin tài khoản từ cơ sở dữ liệu
                 var thongTinTaiKhoan = await DatabaseAccess.LayThongTinDangNhapAsync(txtUsername.Text);
 
-                // Trường hợp 1: Không tìm thấy tên đăng nhập
+ 
                 if (thongTinTaiKhoan == null)
                 {
                     MessageBox.Show("Tên đăng nhập không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -50,7 +49,7 @@ namespace Register_Login_System
                     return;
                 }
 
-                // Kiểm tra mật khẩu
+
                 bool loginSuccess = MatKhau.KiemTra(txtPassword.Text, thongTinTaiKhoan.Value.Salt, thongTinTaiKhoan.Value.MatKhauBam);
 
                 if (loginSuccess)
@@ -74,7 +73,7 @@ namespace Register_Login_System
                 }
                 else
                 {
-                    // Trường hợp 2: Sai mật khẩu -> Giữ nguyên tên đăng nhập, chỉ xóa ô mật khẩu
+
                     MessageBox.Show("Mật khẩu không chính xác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPassword.Clear();
                     txtPassword.Focus();
@@ -102,11 +101,10 @@ namespace Register_Login_System
                 {
                     this.Show();
 
-                    // Tự động điền tên đăng nhập vừa đăng ký thành công vào ô Username
                     if (!string.IsNullOrEmpty(regForm.RegisteredUsername))
                     {
                         txtUsername.Text = regForm.RegisteredUsername;
-                        txtPassword.Focus(); // Đưa con trỏ chuột sang ô mật khẩu
+                        txtPassword.Focus(); 
                     }
                 }
             }
