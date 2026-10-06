@@ -40,12 +40,18 @@ namespace Register_Login_System
             {
                 // Lấy thông tin tài khoản từ cơ sở dữ liệu
                 var thongTinTaiKhoan = await DatabaseAccess.LayThongTinDangNhapAsync(txtUsername.Text);
-                bool loginSuccess = false;
 
-                if (thongTinTaiKhoan != null)
+                // Trường hợp 1: Không tìm thấy tên đăng nhập
+                if (thongTinTaiKhoan == null)
                 {
-                    loginSuccess = MatKhau.KiemTra(txtPassword.Text, thongTinTaiKhoan.Value.Salt, thongTinTaiKhoan.Value.MatKhauBam);
+                    MessageBox.Show("Tên đăng nhập không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtUsername.Clear();
+                    txtUsername.Focus();
+                    return;
                 }
+
+                // Kiểm tra mật khẩu
+                bool loginSuccess = MatKhau.KiemTra(txtPassword.Text, thongTinTaiKhoan.Value.Salt, thongTinTaiKhoan.Value.MatKhauBam);
 
                 if (loginSuccess)
                 {
@@ -53,25 +59,25 @@ namespace Register_Login_System
                     string ngayDangXuatGanNhat = "Chưa có dữ liệu";
 
                     using (var app = new MainApplication(
-                        txtUsername.Text,                  
-                        txtUsername.Text,              
-                        thongTinTaiKhoan.Value.Email       
+                        txtUsername.Text,
+                        txtUsername.Text,
+                        thongTinTaiKhoan.Value.Email
                     ))
                     {
                         app.ShowDialog();
                     }
 
-
                     this.Show();
+                    txtUsername.Clear();
                     txtPassword.Clear();
                     txtUsername.Focus();
                 }
                 else
                 {
-                    MessageBox.Show("Tài khoản hoặc mật khẩu sai.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtUsername.Clear();
+                    // Trường hợp 2: Sai mật khẩu -> Giữ nguyên tên đăng nhập, chỉ xóa ô mật khẩu
+                    MessageBox.Show("Mật khẩu không chính xác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPassword.Clear();
-                    txtUsername.Focus();
+                    txtPassword.Focus();
                 }
             }
             catch (Exception ex)
