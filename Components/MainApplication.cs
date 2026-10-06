@@ -7,7 +7,6 @@ namespace Register_Login_System
     {
         private void MainApplication_Load(object sender, EventArgs e)
         {
-            // Để trống cũng được
         }
         public MainApplication(string hoTen, string username, string email)
         {

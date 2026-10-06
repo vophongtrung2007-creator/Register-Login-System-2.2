@@ -50,12 +50,7 @@ namespace Register_Login_System
                 if (loginSuccess)
                 {
                     this.Hide();
-
-                    // Xử lý dữ liệu Ngày đăng xuất. 
-                    // Lưu ý: Nếu trong struct/CSDL của bạn đã có cột NgayDangXuat, hãy thay chuỗi mặc định dưới đây thành thongTinTaiKhoan.Value.NgayDangXuat
                     string ngayDangXuatGanNhat = "Chưa có dữ liệu";
-
-                    // Truyền đủ 3 tham số: Tên đăng nhập, Email, Ngày đăng xuất vào MainApplication
                     using (var app = new MainApplication(
                         txtUsername.Text,
                         thongTinTaiKhoan.Value.Email,
