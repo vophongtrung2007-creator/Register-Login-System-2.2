@@ -35,7 +35,7 @@
             lbRegister = new Label();
             lklbRegister = new LinkLabel();
             btnLogin = new Button();
-            linkLabel1 = new LinkLabel();
+            btnThoat = new Button();
             SuspendLayout();
             // 
             // lbUsername
@@ -102,23 +102,22 @@
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
-            // linkLabel1
+            // btnThoat
             // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.Location = new Point(461, 162);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(116, 20);
-            linkLabel1.TabIndex = 7;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Quên mật khẩu?";
-            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            btnThoat.Location = new Point(457, 239);
+            btnThoat.Name = "btnThoat";
+            btnThoat.Size = new Size(120, 40);
+            btnThoat.TabIndex = 7;
+            btnThoat.Text = "Thoát";
+            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.Click += btnThoat_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(linkLabel1);
+            Controls.Add(btnThoat);
             Controls.Add(btnLogin);
             Controls.Add(lklbRegister);
             Controls.Add(lbRegister);
@@ -142,6 +141,6 @@
         private Label lbRegister;
         private LinkLabel lklbRegister;
         private Button btnLogin;
-        private LinkLabel linkLabel1;
+        private Button btnThoat;
     }
 }

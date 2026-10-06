@@ -59,7 +59,7 @@ namespace Register_Login_System
                         app.ShowDialog();
                     }
 
-                    
+
                     this.Show();
                     txtPassword.Clear();
                     txtUsername.Focus();
@@ -103,23 +103,10 @@ namespace Register_Login_System
                 }
             }
         }
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+        private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
-            using (PasswordRecovery passRec = new PasswordRecovery())
-            {
-                passRec.ShowDialog();
-
-                if (passRec.exitRequest)
-                {
-                    this.Close();
-                }
-                else
-                {
-                    this.Show();
-                }
-            }
+            Close();
         }
     }
 }
