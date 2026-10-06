@@ -51,10 +51,12 @@ namespace Register_Login_System
                 {
                     this.Hide();
                     string ngayDangXuatGanNhat = "Chưa có dữ liệu";
+
                     using (var app = new MainApplication(
-                        txtUsername.Text,
-                        thongTinTaiKhoan.Value.Email,
-                        ngayDangXuatGanNhat))
+                        txtUsername.Text,                  
+                        txtUsername.Text,              
+                        thongTinTaiKhoan.Value.Email       
+                    ))
                     {
                         app.ShowDialog();
                     }

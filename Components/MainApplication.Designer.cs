@@ -32,6 +32,7 @@
             lblUsername = new Label();
             lblEmail = new Label();
             lblLastLoginTime = new Label();
+            btnThoat = new Button();
             SuspendLayout();
             // 
             // lblGreeting
@@ -74,11 +75,22 @@
             lblLastLoginTime.TabIndex = 3;
             lblLastLoginTime.Text = "label4";
             // 
+            // btnThoat
+            // 
+            btnThoat.Location = new Point(599, 350);
+            btnThoat.Name = "btnThoat";
+            btnThoat.Size = new Size(132, 46);
+            btnThoat.TabIndex = 4;
+            btnThoat.Text = "Đăng xuất";
+            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.Click += button1_Click;
+            // 
             // MainApplication
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnThoat);
             Controls.Add(lblLastLoginTime);
             Controls.Add(lblEmail);
             Controls.Add(lblUsername);
@@ -96,5 +108,6 @@
         private Label lblUsername;
         private Label lblEmail;
         private Label lblLastLoginTime;
+        private Button btnThoat;
     }
 }
