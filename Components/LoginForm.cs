@@ -54,13 +54,15 @@ namespace Register_Login_System
 
                 if (loginSuccess)
                 {
+
                     this.Hide();
-                    string ngayDangXuatGanNhat = "Chưa có dữ liệu";
+                    await DatabaseAccess.CapNhatLanDangNhapCuoiAsync(txtUsername.Text.Trim());
 
                     using (var app = new MainApplication(
                         txtUsername.Text,
                         txtUsername.Text,
-                        thongTinTaiKhoan.Value.Email
+                        thongTinTaiKhoan.Value.Email,
+                        thongTinTaiKhoan.Value.LanDangNhapCuoi
                     ))
                     {
                         app.ShowDialog();

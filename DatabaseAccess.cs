@@ -7,7 +7,7 @@ namespace Register_Login_System
 {
     public static class DatabaseAccess
     {
-        private const string ChuoiKetNoi = @"Server=localhost; Database=QUANLYBANHANG1; Trusted_Connection=True; TrustServerCertificate=True;";
+        private const string ChuoiKetNoi = @"Server=.\SQLEXPRESS; Database=QUANLYBANHANG1; Trusted_Connection=True; TrustServerCertificate=True;";
 
         public static async Task<bool> KiemTraTonTaiAsync(string tenDangNhap)
         {
@@ -42,10 +42,10 @@ namespace Register_Login_System
             await cmd.ExecuteNonQueryAsync();
         }
 
-        public static async Task<(string Salt, string MatKhauBam, string HoTen, string Email)?> LayThongTinDangNhapAsync(string tenDangNhap)
+        public static async Task<(string Salt, string MatKhauBam, string HoTen, string Email, DateTime? LanDangNhapCuoi)?> LayThongTinDangNhapAsync(string tenDangNhap)
         {
             // Đã thêm Email vào câu lệnh SQL
-            const string sql = "SELECT Salt, MatKhauBam, HoTen, Email FROM Users WHERE TenDangNhap = @ten";
+            const string sql = "SELECT Salt, MatKhauBam, HoTen, Email,lanDangNhapCuoi FROM Users WHERE TenDangNhap = @ten";
             using var conn = new SqlConnection(ChuoiKetNoi);
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add("@ten", SqlDbType.NVarChar, 20).Value = tenDangNhap;
@@ -61,11 +61,23 @@ namespace Register_Login_System
 
                 // Đọc thêm Email (kiểm tra trường hợp NULL)
                 string email = reader.IsDBNull(3) ? "Chưa cập nhật" : reader.GetString(3);
-
-                return (salt, bam, hoTen, email);
+                DateTime? lanDangNhapCuoi = reader.IsDBNull(4) ? (DateTime?)null : reader.GetDateTime(4);
+                return (salt, bam, hoTen, email,lanDangNhapCuoi);
             }
 
             return null;
+        }
+
+        public static async Task CapNhatLanDangNhapCuoiAsync(string tenDangNhap)
+        {
+            const string sql = "UPDATE Users SET LanDangNhapCuoi = SYSDATETIME() WHERE TenDangNhap = @ten;";
+
+            using var conn = new SqlConnection(ChuoiKetNoi);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add("@ten", SqlDbType.NVarChar, 20).Value = tenDangNhap;
+
+            await conn.OpenAsync();
+            await cmd.ExecuteNonQueryAsync();
         }
     }
 }
